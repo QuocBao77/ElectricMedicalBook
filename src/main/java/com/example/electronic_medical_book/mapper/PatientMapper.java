@@ -21,5 +21,5 @@ public interface PatientMapper {
     @Mapping(target = "id", ignore = true)
     void updateEntity(PatientDTO patientDTO, @MappingTarget Patient patient);
 
-    List<PatientDTO> toDepartmentDTOs(List<Patient> patients);
+    List<PatientDTO> toPatientDTOs(List<Patient> patients);
 }

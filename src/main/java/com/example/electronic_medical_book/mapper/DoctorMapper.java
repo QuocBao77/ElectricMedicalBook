@@ -22,5 +22,5 @@ public interface DoctorMapper {
     @Mapping(target = "id", ignore = true)
     void updateEntity(DoctorDTO doctorDTO, @MappingTarget Doctor doctor);
 
-    List<DoctorDTO> toDoctorDTOs(List<Doctor> doctorList);
+    List<DoctorDTO> toDoctorDTOs(List<Doctor> doctors);
 }

@@ -5,6 +5,9 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
+
 @AllArgsConstructor
 @Getter
 @Setter
@@ -14,7 +17,7 @@ public class MedicalBillDTO {
 
     private PatientDTO patient;
 
-    private String request_date;
+    private Date requestDate;
 
     private DoctorDTO doctor;
 

@@ -12,9 +12,9 @@ public class DoctorDTO {
     @Id
     private Long id;
 
-    private Long name;
+    private String name;
 
-    private Long email;
+    private String email;
 
-    private Long address;
+    private String address;
 }
