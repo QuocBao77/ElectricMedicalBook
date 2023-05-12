@@ -16,4 +16,6 @@ public class DiseaseInformationDTO {
     private String illustration;
 
     private String description;
+
+    private DoctorDTO doctor;
 }

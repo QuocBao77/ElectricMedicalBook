@@ -1,5 +1,6 @@
 package com.example.electronic_medical_book.controller;
 
+import com.example.electronic_medical_book.dto.MedicalBillDTO;
 import com.example.electronic_medical_book.dto.PatientDTO;
 import com.example.electronic_medical_book.entity.Patient;
 import com.example.electronic_medical_book.mapper.PatientMapper;
@@ -47,6 +48,16 @@ public class PatientController {
     @DeleteMapping("/delete/{id}")
     void delete (@PathVariable(name = "id") Long id) throws Exception{
         this.patientService.delete(id);
+    }
+
+    @GetMapping("findByName/{name}")
+    List<PatientDTO> findByName (@PathVariable(name = "name") String name) {
+        return this.patientService.findByName(name);
+    }
+
+    @GetMapping("findByID/{id}")
+    List<MedicalBillDTO> findMBByIDofP (@PathVariable(name = "id") Long id){
+        return this.patientService.findAllMedicalBillofPateint(id);
     }
 
 

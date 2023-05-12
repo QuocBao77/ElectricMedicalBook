@@ -35,6 +35,11 @@ public class DiseaseInformation {
     @Column(name = "Description")
     private String description;
 
+    @OneToOne
+    @JoinColumn(name = "Doctor", referencedColumnName = "ID_Doctor")
+    private Doctor doctor;
+
+
     @OneToOne(mappedBy = "diseaseInformation", cascade = CascadeType.REMOVE)
     private MedicalBillDetail medicalBillDetail;
 
