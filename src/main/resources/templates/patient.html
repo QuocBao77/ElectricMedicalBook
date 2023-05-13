@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patient List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/inforAdmin}">Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/Up_Regulation}">Regulation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="col-3"></div>
+<div class="container col-6">
+    <h1>Manage Patient</h1>
+    <form>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" name="name" class="form-control" placeholder="Search your patient name..">
+                <a th:href="@{/patient/searchPatient?name={name}(name=${name})}" class="btn btn-primary">Search</a>
+            </td>
+        </tr>
+    </form>
+    <table class="table table-active">
+        <tr>
+            <th>Name</th>
+            <th>Sex</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>CCCD</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="patients : ${patientList}">
+            <td th:text="${patients.name}"></td>
+            <td th:text="${patients.sex}"></td>
+            <td th:text="${patients.email}"></td>
+            <td th:text="${patients.address}"></td>
+            <td th:text="${patients.cccd}"></td>
+            <td>
+                <a th:href="@{/patient/editPatient?id={id}(id=${patients.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/patient/deletePatient?id={id}(id=${patients.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <a href="/patient/addPatient"  th:href="@{/patient/addPatient}" class="btn btn-success">Add Patient</a>
+</div>
+</body>
+</html>
