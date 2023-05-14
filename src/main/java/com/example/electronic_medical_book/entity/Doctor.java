@@ -35,6 +35,6 @@ public class Doctor {
     @Column(name = "Address")
     private String address;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "doctor")
     private List<MedicalBill> medicalBillList;
 }

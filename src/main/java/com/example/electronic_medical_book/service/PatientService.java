@@ -1,5 +1,6 @@
 package com.example.electronic_medical_book.service;
 import com.example.electronic_medical_book.dto.MedicalBillDTO;
+import com.example.electronic_medical_book.dto.MedicalBillDetailDTO;
 import com.example.electronic_medical_book.dto.PatientDTO;
 import com.example.electronic_medical_book.entity.MedicalBill;
 import com.example.electronic_medical_book.entity.Patient;
@@ -18,4 +19,6 @@ public interface PatientService {
     List<PatientDTO> findByName(String name);
 
     List<MedicalBillDTO> findAllMedicalBillofPateint(Long id);
+
+    List<MedicalBillDetailDTO> findAllMedicalBillDetailofPateint(Long id);
 }

@@ -52,4 +52,9 @@ public class DoctorController {
     void delete (@PathVariable(name = "id") Long id) throws Exception{
         this.doctorService.delete(id);
     }
+
+    @GetMapping("findByName/{name}")
+    List<DoctorDTO> findByName (@PathVariable(name = "name") String name) {
+        return this.doctorService.findByName(name);
+    }
 }

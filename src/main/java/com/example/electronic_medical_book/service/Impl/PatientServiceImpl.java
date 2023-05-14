@@ -1,10 +1,13 @@
 package com.example.electronic_medical_book.service.Impl;
 
 import com.example.electronic_medical_book.dto.MedicalBillDTO;
+import com.example.electronic_medical_book.dto.MedicalBillDetailDTO;
 import com.example.electronic_medical_book.dto.PatientDTO;
 import com.example.electronic_medical_book.entity.MedicalBill;
+import com.example.electronic_medical_book.entity.MedicalBillDetail;
 import com.example.electronic_medical_book.entity.Patient;
 import com.example.electronic_medical_book.exception.RequestException;
+import com.example.electronic_medical_book.mapper.MedicalBillDetailMapper;
 import com.example.electronic_medical_book.mapper.MedicalBillMapper;
 import com.example.electronic_medical_book.mapper.PatientMapper;
 import com.example.electronic_medical_book.repository.PatientRepository;
@@ -26,6 +29,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private MedicalBillMapper medicalBillMapper;
+
+    @Autowired
+    private MedicalBillDetailMapper medicalBillDetailMapper;
     @Override
     public Patient findById(Long id) throws Exception {
         Optional<Patient> patient = patientRepository.findById(id);
@@ -74,6 +80,17 @@ public class PatientServiceImpl implements PatientService {
         } else {
             List<MedicalBillDTO> medicalBillDTOS = this.medicalBillMapper.toMedicalBillDTOs(medicalBills);
             return medicalBillDTOS;
+        }
+    }
+
+    @Override
+    public List<MedicalBillDetailDTO> findAllMedicalBillDetailofPateint(Long id) {
+        List<MedicalBillDetail> medicalBillDetails = this.patientRepository.filterMedicalBillDetailByID(id);
+        if (medicalBillDetails.isEmpty()) {
+            throw new RequestException("No data!, please try again!");
+        } else {
+            List<MedicalBillDetailDTO> medicalBillDetailDTOS = this.medicalBillDetailMapper.toMedicalBillDetailDTOs(medicalBillDetails);
+            return medicalBillDetailDTOS;
         }
     }
 }

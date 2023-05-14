@@ -1,6 +1,7 @@
 package com.example.electronic_medical_book.service.Impl;
 
 import com.example.electronic_medical_book.dto.DoctorDTO;
+import com.example.electronic_medical_book.dto.PatientDTO;
 import com.example.electronic_medical_book.entity.Doctor;
 import com.example.electronic_medical_book.entity.Patient;
 import com.example.electronic_medical_book.exception.RequestException;
@@ -10,6 +11,7 @@ import com.example.electronic_medical_book.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +50,16 @@ public class DoctorServiceImpl implements DoctorService {
                 .orElseThrow(() -> new RequestException("Not found this Doctor have id: " + id));
         doctorMapper.updateEntity(doctorDTO, local);
         return (doctorMapper.toDoctorDTO((doctorRepository.save(local))));
+    }
+
+    @Override
+    public List<DoctorDTO> findByName(String name) {
+        List<Doctor> doctors = this.doctorRepository.searchDoctorByName("%" + name + "%");
+        if (doctors.isEmpty()) {
+            throw new RequestException("No data!, please try again!");
+        } else {
+            List<DoctorDTO> doctorDTOList = this.doctorMapper.toDoctorDTOs(doctors);
+            return doctorDTOList;
+        }
     }
 }

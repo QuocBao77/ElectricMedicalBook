@@ -1,15 +1,19 @@
 package com.example.electronic_medical_book.service.Impl;
 
 import com.example.electronic_medical_book.dto.MedicalBillDTO;
+import com.example.electronic_medical_book.dto.MedicalBillDetailDTO;
 import com.example.electronic_medical_book.entity.Doctor;
 import com.example.electronic_medical_book.entity.MedicalBill;
+import com.example.electronic_medical_book.entity.MedicalBillDetail;
 import com.example.electronic_medical_book.exception.RequestException;
+import com.example.electronic_medical_book.mapper.MedicalBillDetailMapper;
 import com.example.electronic_medical_book.mapper.MedicalBillMapper;
 import com.example.electronic_medical_book.repository.MedicalBillRepository;
 import com.example.electronic_medical_book.service.MedicalBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +24,9 @@ public class MedicalBillImpl implements MedicalBillService {
 
     @Autowired
     private MedicalBillRepository medicalBillRepository;
+
+    @Autowired
+    private MedicalBillDetailMapper medicalBillDetailMapper;
 
     @Override
     public MedicalBill findById(Long id) throws Exception {
@@ -47,5 +54,16 @@ public class MedicalBillImpl implements MedicalBillService {
                 .orElseThrow(() -> new RequestException("Not found this Medical Bill have id: " + id));
         medicalBillMapper.updateEntity(medicalBillDTO, local);
         return (medicalBillMapper.toMedicalBillDTO((medicalBillRepository.save(local))));
+    }
+
+    @Override
+    public List<MedicalBillDetailDTO> findMBDofMB(Long id) {
+        List<MedicalBillDetail> medicalBillDetails = this.medicalBillRepository.filterMedicalBillByID(id);
+        if (medicalBillDetails.isEmpty()) {
+            throw new RequestException("No data!, please try again!");
+        } else {
+            List<MedicalBillDetailDTO> medicalBillDetailDTOS = this.medicalBillDetailMapper.toMedicalBillDetailDTOs(medicalBillDetails);
+            return medicalBillDetailDTOS;
+        }
     }
 }

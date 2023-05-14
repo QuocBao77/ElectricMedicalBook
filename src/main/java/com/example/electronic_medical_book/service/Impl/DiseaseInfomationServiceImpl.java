@@ -1,6 +1,7 @@
 package com.example.electronic_medical_book.service.Impl;
 
 import com.example.electronic_medical_book.dto.DiseaseInformationDTO;
+import com.example.electronic_medical_book.dto.DoctorDTO;
 import com.example.electronic_medical_book.entity.DiseaseInformation;
 import com.example.electronic_medical_book.entity.Doctor;
 import com.example.electronic_medical_book.entity.Drug;
@@ -11,6 +12,7 @@ import com.example.electronic_medical_book.service.DiseaseInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +50,16 @@ public class DiseaseInfomationServiceImpl implements DiseaseInformationService {
                 .orElseThrow(() -> new RequestException("Not found this Disease Information have id: " + id));
         diseaseInformationMapper.updateEntity(diseaseInformationDTO, local);
         return (diseaseInformationMapper.toDiseaseInformationDTO((diseaseInformationRepository.save(local))));
+    }
+
+    @Override
+    public List<DiseaseInformationDTO> findByName(String name) {
+        List<DiseaseInformation> diseaseInformations = this.diseaseInformationRepository.searchDiseaseInformationByName("%" + name + "%");
+        if (diseaseInformations.isEmpty()) {
+            throw new RequestException("No data!, please try again!");
+        } else {
+            List<DiseaseInformationDTO> diseaseInformationDTOList = this.diseaseInformationMapper.toDiseaseInformationDTOs(diseaseInformations);
+            return diseaseInformationDTOList;
+        }
     }
 }

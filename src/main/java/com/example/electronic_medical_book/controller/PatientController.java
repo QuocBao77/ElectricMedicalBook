@@ -1,6 +1,7 @@
 package com.example.electronic_medical_book.controller;
 
 import com.example.electronic_medical_book.dto.MedicalBillDTO;
+import com.example.electronic_medical_book.dto.MedicalBillDetailDTO;
 import com.example.electronic_medical_book.dto.PatientDTO;
 import com.example.electronic_medical_book.entity.Patient;
 import com.example.electronic_medical_book.mapper.PatientMapper;
@@ -58,6 +59,11 @@ public class PatientController {
     @GetMapping("findByID/{id}")
     List<MedicalBillDTO> findMBByIDofP (@PathVariable(name = "id") Long id){
         return this.patientService.findAllMedicalBillofPateint(id);
+    }
+
+    @GetMapping("findMBDByID/{id}")
+    List<MedicalBillDetailDTO> findMBDByIDofP (@PathVariable(name = "id") Long id){
+        return this.patientService.findAllMedicalBillDetailofPateint(id);
     }
 
 

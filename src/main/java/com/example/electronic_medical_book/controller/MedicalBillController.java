@@ -2,8 +2,10 @@ package com.example.electronic_medical_book.controller;
 
 import com.example.electronic_medical_book.dto.DoctorDTO;
 import com.example.electronic_medical_book.dto.MedicalBillDTO;
+import com.example.electronic_medical_book.dto.MedicalBillDetailDTO;
 import com.example.electronic_medical_book.entity.Doctor;
 import com.example.electronic_medical_book.entity.MedicalBill;
+import com.example.electronic_medical_book.entity.MedicalBillDetail;
 import com.example.electronic_medical_book.mapper.MedicalBillMapper;
 import com.example.electronic_medical_book.repository.MedicalBillRepository;
 import com.example.electronic_medical_book.service.MedicalBillService;
@@ -48,5 +50,10 @@ public class MedicalBillController {
     @DeleteMapping("/delete/{id}")
     void delete (@PathVariable(name = "id") Long id) throws Exception{
         this.medicalBillService.delete(id);
+    }
+
+    @GetMapping("findByID/{id}")
+    List<MedicalBillDetailDTO> findMBByIDofP (@PathVariable(name = "id") Long id){
+        return this.medicalBillService.findMBDofMB(id);
     }
 }
