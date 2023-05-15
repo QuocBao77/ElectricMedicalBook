@@ -90,22 +90,24 @@ public class PatientController {
     }
     @RequestMapping (value ="/searchPatient", method = RequestMethod.GET)
     public ModelAndView searchPatient(@RequestParam(name = "name") String name,
-                                    ModelAndView modelAndView) {
-        List<PatientDTO> patientDTOS = patientService.findByName(name);
+                                    ModelAndView modelAndView,
+                                      RedirectAttributes redirectAttributes) {
 
-        modelAndView.addObject("patientList", patientDTOS);
-        modelAndView.setViewName("patient");
-        return modelAndView;
+        try {
+            List<PatientDTO> patientDTOS = patientService.findByName(name);
+
+            modelAndView.addObject("patientList", patientDTOS);
+            modelAndView.setViewName("patient");
+            return modelAndView;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("No data");
+            modelAndView.setViewName("redirect:/patient/patient");
+            return modelAndView;
+        }
     }
 
-
-//    @GetMapping("/products")
-//    public ModelAndView getProducts(ModelAndView modelAndView) {
-//        List<ProductDTO> products = productService.getAllProducts();
-//        modelAndView.addObject("products", products);
-//        modelAndView.setViewName("products");
-//        return modelAndView;
-//    }
 
 
     @GetMapping("/getAll")

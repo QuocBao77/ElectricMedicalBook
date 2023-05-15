@@ -30,16 +30,14 @@
 <div class="col-3"></div>
 <div class="container col-6">
     <h1>Manage Patient</h1>
+    <form th:action="@{/patient/searchPatient?name={name}(name=${name})}"  action="#" method="get">
+        <input type="text" name="name">
+        <button type="submit">Search</button>
+    </form>
     <form>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>
-                <input type="text" name="name" class="form-control" placeholder="Search your patient name..">
-                <a th:href="@{/patient/searchPatient?name={name}(name=${name})}" class="btn btn-primary">Search</a>
-            </td>
-        </tr>
+        <input type="text" name="name" class="form-control" placeholder="Search your patient name..">
+        <a th:href="@{/patient/searchPatient?name={name}(name=${name})}" class="btn btn-primary">Search</a>
+
     </form>
     <table class="table table-active">
         <tr>
