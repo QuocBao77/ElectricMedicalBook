@@ -11,6 +11,7 @@ import com.example.electronic_medical_book.repository.PatientRepository;
 import com.example.electronic_medical_book.service.DoctorService;
 import com.example.electronic_medical_book.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class DoctorController {
     @Autowired
     private DoctorMapper doctorMapper;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAll")
     List<DoctorDTO> getListDoctor(){
         return this.doctorMapper.toDoctorDTOs(this.doctorRepository.findAll());
