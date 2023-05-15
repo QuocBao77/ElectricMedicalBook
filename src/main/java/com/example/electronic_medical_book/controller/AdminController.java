@@ -33,7 +33,7 @@ public class AdminController {
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         Role role = new Role();
         role.setId(1L);
-        role.setName("Admin");
+        role.setName("ROLE_ADMIN");
 
         AccountRole adminRole = new AccountRole();
         adminRole.setRole(role);
@@ -51,7 +51,7 @@ public class AdminController {
         manager.setPassword(passwordEncoder.encode(manager.getPassword()));
         Role role = new Role();
         role.setId(2L);
-        role.setName("Manager");
+        role.setName("ROLE_MANAGER");
 
         AccountRole managerRole = new AccountRole();
         managerRole.setRole(role);
@@ -72,5 +72,8 @@ public class AdminController {
         return this.accountService.findAccount(username);
 
     }
+
+
+
 
 }

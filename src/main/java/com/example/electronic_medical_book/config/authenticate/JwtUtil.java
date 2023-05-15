@@ -24,7 +24,7 @@ import static io.jsonwebtoken.Jwts.builder;
 @Component
 public class JwtUtil {
 
-    private String SECRET_KEY = "8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb";
+    private String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5971";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -40,7 +40,6 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-//        return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
         Claims claims = null;
         try{
             claims = Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
@@ -73,7 +72,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + "864_000_000"))
+                .setExpiration(new Date(System.currentTimeMillis() + 864_000_000))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
