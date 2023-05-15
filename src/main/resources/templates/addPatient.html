@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}"/>
+</head>
+<body>
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" href="#">Manager</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" th:href="@{/}">Back</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" th:href="@{/Up_Regulation}">Regulation</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+<div class="col-3"></div>
+<div class="container col-6">
+    <h1>New Patient</h1>
+    <div class="col-md-auto">
+        <form th:object="${patient}" th:action="@{/patient/savePatient}" action="#" method="post">
+            <div>
+                <label th:text="Name" th:for="name"></label>
+                <input type="text" th:field="*{name}" class="form-control" placeholder="Name" />
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="'error-message'" ></span>
+
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
+            <div>
+                <label th:text="Sex" th:for="sex"></label>
+                <input type="text" th:field="*{sex}" class="form-control" placeholder="Sex"  />
+                <span th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" th:class="'error-message'"></span>
+
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
+            <div>
+                <label th:text="Email" th:for="email"></label>
+                <input type="text" th:field="*{email}" class="form-control" placeholder="Email"/>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="'error-message'"></span>
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
+            <div>
+                <label th:text="Address" th:for="address"></label>
+                <input type="text" th:field="*{address}" class="form-control" placeholder="Address"  />
+                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:class="'error-message'"></span>
+
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
+            <div>
+                <label th:text="CCCD" th:for="Cccd"></label>
+                <input type="text" th:field="*{cccd}" class="form-control" placeholder="CCCD"/>
+                <span th:if="${#fields.hasErrors('cccd')}" th:errors="*{cccd}" th:class="'error-message'"></span>
+            </div>
+            <div style="clear: both; display: block; height: 10px"></div>
+            <input type="submit" class="btn btn-success" value="Save"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
