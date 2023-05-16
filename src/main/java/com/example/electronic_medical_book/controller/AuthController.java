@@ -12,12 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -61,12 +61,44 @@ public class AuthController {
         return ((Account) this.adminDetailService.loadUserByUsername(principal.getName()));
     }
 
-//    @Autowired
-//    private EmailSendersService emailSendersService;
-//
-//    @PostMapping("/sendmail")
-//    public ResponseEntity sendEmail(@RequestBody EmailMessage emailMessage) {
-//        this.emailSendersService.sendEmail(emailMessage.getTo(), emailMessage.getSubject(), emailMessage.getMessage());
-//        return ResponseEntity.ok("Success");
-//    }
+    @GetMapping("/loginPage")
+    public ModelAndView ShowLogin(ModelAndView modelAndView){
+        modelAndView.setViewName("loginPage");
+        return modelAndView;
+    }
+
+
+    @PostMapping("/loginPage")
+    public ModelAndView processLogin(@RequestParam("username") String username,
+                               @RequestParam("password") String password,
+                               ModelAndView modelAndView) {
+        if (username.equals("admin") && password.equals("123")) {
+            modelAndView.addObject("username", username);
+            modelAndView.setViewName("index");
+            return modelAndView;
+        } else {
+            modelAndView.addObject("error", "Invalid username or password");
+            modelAndView.setViewName("loginPage");
+            return modelAndView;
+        }
+    }
+
+
+
+
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> authenticateUser(@RequestBody JwtRequest loginRequest, UserDetails userDetails) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwtToken = jwtUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse());
+    }
+
 }
+

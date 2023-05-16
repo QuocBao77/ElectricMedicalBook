@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Patient List</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Manager</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/patient/patient}">Patient</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/doctor/doctor}">Doctor</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/drug/drug}">Drug</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/diseaseInformation/diseaseInformation}">DiseaseInformation</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="col-3"></div>
+<div class="container col-6">
+  <h1>Manage Doctor</h1>
+  <form th:action="@{/doctor/searchDoctor?name={name}(name=${name})}"  action="#" method="get">
+    <input type="text" name="name">
+    <button type="submit">Search</button>
+  </form>
+  <table class="table table-active">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+    <tr th:each="doctors : ${doctorList}">
+      <td th:text="${doctors.name}"></td>
+      <td th:text="${doctors.email}"></td>
+      <td th:text="${doctors.address}"></td>
+      <td>
+        <a th:href="@{/doctor/editDoctor?id={id}(id=${doctors.id})}" class="btn btn-primary">Edit</a>
+        <a th:href="@{/doctor/deleteDoctor?id={id}(id=${doctors.id})}" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+  </table>
+  <a href="/doctor/addDoctor"  th:href="@{/doctor/addDoctor}" class="btn btn-success">Add Doctor</a>
+</div>
+</body>
+</html>

@@ -45,7 +45,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void delete(Long id) throws Exception {
         this.patientRepository.delete(this.patientRepository.findById(id)
-                .orElseThrow(() -> new RequestException("Not Found")));
+                .orElseThrow(() -> new RequestException("Not Found this Patient have id : " + id)));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientDTO update(PatientDTO patientDTO, Long id) throws Exception {
         Patient local = this.patientRepository.findById(id)
-                .orElseThrow(() -> new RequestException("Not found"));
+                .orElseThrow(() -> new RequestException("Not found this Patient have id :" + id));
         patientMapper.updateEntity(patientDTO, local);
         return (patientMapper.toPatientDTO((patientRepository.save(local))));
     }

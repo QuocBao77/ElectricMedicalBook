@@ -6,9 +6,13 @@ import com.example.electronic_medical_book.entity.Drug;
 import com.example.electronic_medical_book.mapper.DrugMapper;
 import com.example.electronic_medical_book.repository.DrugRepository;
 import com.example.electronic_medical_book.service.DrugService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -25,6 +29,39 @@ public class DrugController {
     @Autowired
     private DrugService drugService;
 
+    // API Browser
+    @GetMapping("/drug")
+    public ModelAndView drug(ModelAndView modelAndView) {
+        List<DrugDTO> drugDTOS = drugMapper.toDrugDTOs(this.drugRepository.findAll());
+
+        modelAndView.addObject("drugList", drugDTOS);
+        modelAndView.setViewName("drug");
+        return modelAndView;
+    }
+
+
+
+    @RequestMapping (value ="/searchDrug", method = RequestMethod.GET)
+    public ModelAndView searchDrug(@RequestParam(name = "name") String name,
+                                     ModelAndView modelAndView,
+                                     RedirectAttributes redirectAttributes) {
+
+        try {
+            List<DrugDTO> drugDTOS = drugService.findByName(name);
+
+            modelAndView.addObject("drugList", drugDTOS);
+            modelAndView.setViewName("drug");
+            return modelAndView;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("No data");
+            modelAndView.setViewName("redirect:/drug/drug");
+            return modelAndView;
+        }
+    }
+
+    // API PostMan
     @GetMapping("/getAll")
     List<DrugDTO> getListDrug(){
         return this.drugMapper.toDrugDTOs(this.drugRepository.findAll());

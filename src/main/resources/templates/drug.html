@@ -33,33 +33,29 @@
 </nav>
 <div class="col-3"></div>
 <div class="container col-6">
-    <h1>Manage Patient</h1>
-    <form th:action="@{/patient/searchPatient?name={name}(name=${name})}"  action="#" method="get">
+    <h1>Manage Drug</h1>
+    <form th:action="@{/drug/searchDrug?name={name}(name=${name})}"  action="#" method="get">
         <input type="text" name="name">
         <button type="submit">Search</button>
     </form>
     <table class="table table-active">
         <tr>
             <th>Name</th>
-            <th>Sex</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>CCCD</th>
+            <th>Dosage</th>
+            <th>Used Time</th>
             <th>Action</th>
         </tr>
-        <tr th:each="patients : ${patientList}">
-            <td th:text="${patients.name}"></td>
-            <td th:text="${patients.sex}"></td>
-            <td th:text="${patients.email}"></td>
-            <td th:text="${patients.address}"></td>
-            <td th:text="${patients.cccd}"></td>
+        <tr th:each="drugs : ${drugList}">
+            <td th:text="${drugs.name}"></td>
+            <td th:text="${drugs.dosage}"></td>
+            <td th:text="${drugs.used_time}"></td>
             <td>
-                <a th:href="@{/patient/editPatient?id={id}(id=${patients.id})}" class="btn btn-primary">Edit</a>
-                <a th:href="@{/patient/deletePatient?id={id}(id=${patients.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/drug/editDrug?id={id}(id=${drugs.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/drug/deleteDrug?id={id}(id=${drugs.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     </table>
-    <a href="/patient/addPatient"  th:href="@{/patient/addPatient}" class="btn btn-success">Add Patient</a>
+    <a href="/doctor/addDrug"  th:href="@{/drug/addDrug}" class="btn btn-success">Add Drug</a>
 </div>
 </body>
 </html>

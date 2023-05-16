@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="col-3"></div>
+<div class="container col-6">
+    <h1>Edit Patient</h1>
+    <form th:object="${diseaseInformation}" th:action="@{/doctor/saveDiseaseInformation}" action="#" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div>
+            <label th:text="Name" th:for="name"></label>
+            <input type="text" th:field="*{name}" class="form-control"/>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <label th:text="Illustration" th:for="illustration"></label>
+            <input type="text" th:field="*{illustration}" class="form-control"/>
+        </div>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <div>
+            <label th:text="Description" th:for="description"></label>
+            <input type="text" th:field="*{description}" class="form-control"/>
+            <div style="clear: both; display: block; height: 10px"></div>
+        </div>
+            <input type="submit" class="btn btn-success" value="Save"/>
+    </form>
+</div>
+</body>
+</html>
