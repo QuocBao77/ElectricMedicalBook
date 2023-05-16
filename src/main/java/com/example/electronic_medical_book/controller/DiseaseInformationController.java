@@ -9,6 +9,7 @@ import com.example.electronic_medical_book.mapper.DiseaseInformationMapper;
 import com.example.electronic_medical_book.repository.DiseaseInformationRepository;
 import com.example.electronic_medical_book.service.DiseaseInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,22 +31,26 @@ public class DiseaseInformationController {
         return this.diseaseInformationMapper.toDiseaseInformationDTOs(this.diseaseInformationRepository.findAll());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{id}")
     DiseaseInformationDTO findByID (@PathVariable(name = "id") Long id) throws Exception{
         return  this.diseaseInformationMapper.toDiseaseInformationDTO(diseaseInformationService.findById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     DiseaseInformationDTO create (@RequestBody DiseaseInformation diseaseInformation){
 
         return this.diseaseInformationService.create(diseaseInformation);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     DiseaseInformationDTO update (@RequestBody DiseaseInformationDTO diseaseInformationDTO, @PathVariable(name = "id") Long id) throws Exception{
         return this.diseaseInformationService.update(diseaseInformationDTO, id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     void delete (@PathVariable(name = "id") Long id) throws Exception{
         this.diseaseInformationService.delete(id);

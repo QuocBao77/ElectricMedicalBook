@@ -36,7 +36,7 @@ public class PatientServiceImpl implements PatientService {
     public Patient findById(Long id) throws Exception {
         Optional<Patient> patient = patientRepository.findById(id);
         if (patient.isEmpty()){
-            throw new RequestException("Not found this Patient: id" + id);
+            throw new RequestException("Not found this Patient with id =" + id);
         }
         return patientRepository.findById(id).get();
 
@@ -56,7 +56,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientDTO update(PatientDTO patientDTO, Long id) throws Exception {
         Patient local = this.patientRepository.findById(id)
-                .orElseThrow(() -> new RequestException("Not f1ound"));
+                .orElseThrow(() -> new RequestException("Not found"));
         patientMapper.updateEntity(patientDTO, local);
         return (patientMapper.toPatientDTO((patientRepository.save(local))));
     }

@@ -29,27 +29,31 @@ public class DoctorController {
     @Autowired
     private DoctorMapper doctorMapper;
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/getAll")
     List<DoctorDTO> getListDoctor(){
         return this.doctorMapper.toDoctorDTOs(this.doctorRepository.findAll());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{id}")
     DoctorDTO findByID (@PathVariable(name = "id") Long id) throws Exception{
         return  this.doctorMapper.toDoctorDTO(doctorService.findById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     DoctorDTO create (@RequestBody Doctor doctor){
         return this.doctorService.create(doctor);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     DoctorDTO update (@RequestBody DoctorDTO doctorDTO, @PathVariable(name = "id") Long id) throws Exception{
         return this.doctorService.update(doctorDTO, id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     void delete (@PathVariable(name = "id") Long id) throws Exception{
         this.doctorService.delete(id);

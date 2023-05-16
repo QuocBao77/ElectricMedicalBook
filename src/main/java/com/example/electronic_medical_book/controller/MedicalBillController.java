@@ -10,6 +10,7 @@ import com.example.electronic_medical_book.mapper.MedicalBillMapper;
 import com.example.electronic_medical_book.repository.MedicalBillRepository;
 import com.example.electronic_medical_book.service.MedicalBillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,21 +33,25 @@ public class MedicalBillController {
         return this.medicalBillMapper.toMedicalBillDTOs(this.medicalBillRepository.findAll());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{id}")
     MedicalBillDTO findByID (@PathVariable(name = "id") Long id) throws Exception{
         return  this.medicalBillMapper.toMedicalBillDTO(medicalBillService.findById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     MedicalBillDTO create (@RequestBody MedicalBill medicalBill){
         return this.medicalBillService.create(medicalBill);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     MedicalBillDTO update (@RequestBody MedicalBillDTO medicalBillDTO, @PathVariable(name = "id") Long id) throws Exception{
         return this.medicalBillService.update(medicalBillDTO, id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     void delete (@PathVariable(name = "id") Long id) throws Exception{
         this.medicalBillService.delete(id);

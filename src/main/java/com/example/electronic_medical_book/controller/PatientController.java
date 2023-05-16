@@ -10,6 +10,7 @@ import com.example.electronic_medical_book.service.PatientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -115,21 +116,26 @@ public class PatientController {
         return this.patientMapper.toPatientDTOs(this.patientRepository.findAll());
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{id}")
     PatientDTO findByID(@PathVariable(name = "id") Long id) throws Exception {
         return this.patientMapper.toPatientDTO(patientService.findById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     PatientDTO create(@RequestBody Patient patient) {
         return this.patientService.create(patient);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     PatientDTO update(@RequestBody PatientDTO patientDTO, @PathVariable(name = "id") Long id) throws Exception {
         return this.patientService.update(patientDTO, id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     void delete(@PathVariable(name = "id") Long id) throws Exception {
         this.patientService.delete(id);
