@@ -74,7 +74,7 @@ public class AuthController {
                                ModelAndView modelAndView) {
         if (username.equals("admin") && password.equals("123")) {
             modelAndView.addObject("username", username);
-            modelAndView.setViewName("index");
+            modelAndView.setViewName("patient");
             return modelAndView;
         } else {
             modelAndView.addObject("error", "Invalid username or password");

@@ -46,6 +46,7 @@
             <th>Doctor</th>
             <th>Email</th>
             <th>Address</th>
+            <th>Action</th>
         </tr>
         <tr th:each="diseaseInformations : ${diseaseInformationList}">
             <td th:text="${diseaseInformations.name}"></td>
@@ -54,8 +55,13 @@
             <td th:text="${diseaseInformations.doctor.name}"></td>
             <td th:text="${diseaseInformations.doctor.email}"></td>
             <td th:text="${diseaseInformations.doctor.address}"></td>
+            <td>
+                <a th:href="@{/diseaseInformation/editDiseaseInformation?id={id}(id=${diseaseInformations.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/diseaseInformation/deleteDiseaseInformation?id={id}(id=${diseaseInformations.id})}" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
     </table>
+    <a href="/diseaseInformation/addDiseaseInformation"  th:href="@{/diseaseInformation/addDiseaseInformation}" class="btn btn-success">Add DiseaseInformation</a>
 </div>
 </body>
 </html>

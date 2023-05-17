@@ -57,7 +57,7 @@ public class MedicalBillController {
         this.medicalBillService.delete(id);
     }
 
-    @GetMapping("findByID/{id}")
+    @GetMapping("/findByID/{id}")
     List<MedicalBillDetailDTO> findMBByIDofP (@PathVariable(name = "id") Long id){
         return this.medicalBillService.findMBDofMB(id);
     }

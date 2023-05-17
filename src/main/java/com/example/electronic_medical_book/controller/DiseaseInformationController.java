@@ -42,6 +42,13 @@ public class DiseaseInformationController {
         return modelAndView;
     }
 
+    @GetMapping("/addDiseaseInformation")
+    public ModelAndView addDiseaseInformation(ModelAndView modelAndView) {
+        modelAndView.addObject("diseaseInformation", new DiseaseInformationDTO());
+        modelAndView.setViewName("addDiseaseInformation");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/editDiseaseInformation", method = RequestMethod.GET)
     public ModelAndView currentDoctor(@RequestParam(name = "id") Long id,
                                       ModelAndView modelAndView) throws Exception {
@@ -70,6 +77,16 @@ public class DiseaseInformationController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/deleteDiseaseInformation", method = RequestMethod.GET)
+    public ModelAndView deleteDiseaseInformation(@RequestParam(name = "id") Long id,
+                                     ModelAndView modelAndView,
+                                     RedirectAttributes redirectAttributes) throws Exception {
+        diseaseInformationService.delete(id);
+        redirectAttributes.addFlashAttribute("success", "Removed diseaseInformation successfully!");
+        modelAndView.setViewName("redirect:/diseaseInformation/diseaseInformation");
+        return modelAndView;
+
+    }
 
     @RequestMapping (value ="/searchDiseaseInformation", method = RequestMethod.GET)
     public ModelAndView searchDiseaseInformation(@RequestParam(name = "name") String name,

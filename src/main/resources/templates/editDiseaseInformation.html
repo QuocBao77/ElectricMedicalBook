@@ -9,7 +9,7 @@
 <div class="col-3"></div>
 <div class="container col-6">
     <h1>Edit Patient</h1>
-    <form th:object="${diseaseInformation}" th:action="@{/doctor/saveDiseaseInformation}" action="#" method="post">
+    <form th:object="${diseaseInformation}" th:action="@{/diseaseInformation/saveDiseaseInformation}" action="#" method="post">
         <input type="hidden" th:field="*{id}">
         <div>
             <label th:text="Name" th:for="name"></label>
@@ -24,6 +24,12 @@
         <div>
             <label th:text="Description" th:for="description"></label>
             <input type="text" th:field="*{description}" class="form-control"/>
+            <div style="clear: both; display: block; height: 10px"></div>
+        </div>
+
+        <div>
+            <label th:text="Doctor" th:for="doctor.id"></label>
+            <input type="text" th:field="*{doctor.id}" class="form-control"/>
             <div style="clear: both; display: block; height: 10px"></div>
         </div>
             <input type="submit" class="btn btn-success" value="Save"/>
