@@ -7,9 +7,13 @@ import com.example.electronic_medical_book.entity.MedicalBillDetail;
 import com.example.electronic_medical_book.mapper.MedicalBillDetailMapper;
 import com.example.electronic_medical_book.repository.MedicalBillDetailRepository;
 import com.example.electronic_medical_book.service.MedicalBillDetailService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -26,6 +30,19 @@ public class MedicalBillDetailController {
     @Autowired
     private MedicalBillDetailService medicalBillDetailService;
 
+
+
+    // API Browser
+    @GetMapping("/medicalBillDetail")
+    public ModelAndView medicalBillDetail(ModelAndView modelAndView) {
+        List<MedicalBillDetailDTO> medicalBillDetailDTOS = medicalBillDetailMapper.toMedicalBillDetailDTOs(this.medicalBillDetailRepository.findAll());
+
+        modelAndView.addObject("medicalBillDetailList", medicalBillDetailDTOS);
+        modelAndView.setViewName("medicalBillDetail");
+        return modelAndView;
+    }
+
+    // API PostMan
     @GetMapping("/getAll")
     List<MedicalBillDetailDTO> getListMedicalBillDetail(){
         return this.medicalBillDetailMapper.toMedicalBillDetailDTOs(this.medicalBillDetailRepository.findAll());

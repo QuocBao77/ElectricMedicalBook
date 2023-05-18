@@ -32,35 +32,34 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" th:href="@{/medicalBillDetail/medicalBillDetail}">Medical Bill Detail</a>
         </li>
+
       </ul>
     </div>
   </div>
 </nav>
 <div class="col-3"></div>
 <div class="container col-6">
-  <h1>Manage Doctor</h1>
-  <form th:action="@{/doctor/searchDoctor?name={name}(name=${name})}"  action="#" method="get">
-    <input type="text" name="name">
-    <button type="submit">Search</button>
-  </form>
+  <h1>Manage Medical Bill</h1>
   <table class="table table-active">
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Address</th>
+      <th>Patient</th>
+      <th>Date</th>
+      <th>CCCD</th>
+      <th>Doctor</th>
       <th>Action</th>
     </tr>
-    <tr th:each="doctors : ${doctorList}">
-      <td th:text="${doctors.name}"></td>
-      <td th:text="${doctors.email}"></td>
-      <td th:text="${doctors.address}"></td>
+    <tr th:each="medicalBills : ${medicalBillList}">
+      <td th:text="${medicalBills.patient.name}"></td>
+      <td th:text="${medicalBills.requestDate}"></td>
+      <td th:text="${medicalBills.patient.cccd}"></td>
+      <td th:text="${medicalBills.doctor.name}"></td>
       <td>
-        <a th:href="@{/doctor/editDoctor?id={id}(id=${doctors.id})}" class="btn btn-primary">Edit</a>
-        <a th:href="@{/doctor/deleteDoctor?id={id}(id=${doctors.id})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/medicalBill/editMedicalBill?id={id}(id=${medicalBills.id})}" class="btn btn-primary">Edit</a>
+        <a th:href="@{/medicalBill/deleteMedicalBill?id={id}(id=${medicalBills.id})}" class="btn btn-danger">Delete</a>
       </td>
     </tr>
   </table>
-  <a href="/doctor/addDoctor"  th:href="@{/doctor/addDoctor}" class="btn btn-success">Add Doctor</a>
+  <a href="/medicalBill/addMedicalBill"  th:href="@{/medicalBill/addMedicalBill}" class="btn btn-success">Add Medical Bill</a>
 </div>
 </body>
 </html>

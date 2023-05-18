@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+  <meta charset="UTF-8">
+  <title>Add User</title>
+  <link type="text/css" rel="stylesheet" href="/bootstrap.min.css" th:href="@{/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="col-3"></div>
+<div class="container col-6">
+  <h1>New Patient</h1>
+  <div class="col-md-auto">
+    <form th:object="${medicalBill}" th:action="@{/medicalBill/saveMedicalBill}" action="#" method="post">
+      <div>
+        <label th:text="Patient_ID" th:for="patient.id"></label>
+        <input type="text" th:field="*{patient.id}" class="form-control" placeholder="ID_Patient" />
+        <span th:if="${#fields.hasErrors('patient.id')}" th:errors="*{patient.id}" th:class="'error-message'" ></span>
+      </div>
+      <div style="clear: both; display: block; height: 10px"></div>
+      <div>
+        <label th:text="Request_Date" th:for="requestDate"></label>
+        <input type="text" th:field="*{requestDate}" class="form-control" placeholder="Request Date" />
+        <span th:if="${#fields.hasErrors('requestDate')}" th:errors="*{requestDate}" th:class="'error-message'" ></span>
+      </div>
+      <div style="clear: both; display: block; height: 10px"></div>
+      <div style="clear: both; display: block; height: 10px"></div>
+      <div>
+        <label th:text="ID_Doctor" th:for="doctor.id"></label>
+        <input type="text" th:field="*{doctor.id}" class="form-control" placeholder="ID_Doctor"  />
+        <span th:if="${#fields.hasErrors('doctor.id')}" th:errors="*{doctor.id}" th:class="'error-message'"></span>
+
+      </div>
+      <div style="clear: both; display: block; height: 10px"></div>
+
+      <input type="submit" class="btn btn-success" value="Save"/>
+    </form>
+  </div>
+</div>
+</body>
+</html>
