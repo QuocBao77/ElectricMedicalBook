@@ -89,6 +89,25 @@ public class PatientController {
         return modelAndView;
 
     }
+
+    @RequestMapping(value = "/detailPatient", method = RequestMethod.GET)
+    public ModelAndView Detail(@RequestParam(name = "id") Long id,
+                                      ModelAndView modelAndView,
+                                      RedirectAttributes redirectAttributes) throws Exception {
+        modelAndView.addObject("medicalBill",patientService.findAllMedicalBillofPateint(id));
+        modelAndView.setViewName("detailPatient");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/detailMDBPatient", method = RequestMethod.GET)
+    public ModelAndView DetailMDB(@RequestParam(name = "id") Long id,
+                                     ModelAndView modelAndView,
+                                     RedirectAttributes redirectAttributes) throws Exception {
+        modelAndView.addObject("medicalBillDetail",patientService.findAllMedicalBillDetailofPateint(id));
+        modelAndView.setViewName("detailMDBPatient");
+        return modelAndView;
+    }
+
     @RequestMapping (value ="/searchPatient", method = RequestMethod.GET)
     public ModelAndView searchPatient(@RequestParam(name = "name") String name,
                                     ModelAndView modelAndView,
@@ -109,7 +128,7 @@ public class PatientController {
         }
     }
 
-
+    // API POSTMAN
 
     @GetMapping("/getAll")
     List<PatientDTO> getListPatient() {

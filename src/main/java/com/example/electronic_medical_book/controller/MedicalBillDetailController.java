@@ -42,6 +42,40 @@ public class MedicalBillDetailController {
         return modelAndView;
     }
 
+    @GetMapping("/addMedicalBillDetail")
+    public ModelAndView addMedicalBillDetail(ModelAndView modelAndView) {
+        modelAndView.addObject("medicalBillDetail", new MedicalBillDetailDTO());
+        modelAndView.setViewName("addMedicalBillDetail");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/editMedicalBillDetail", method = RequestMethod.GET)
+    public ModelAndView currentMedicalBillDetail(@RequestParam(name = "id") Long id,
+                                           ModelAndView modelAndView) throws Exception {
+        modelAndView.addObject("medicalBillDetail", medicalBillDetailService.findById(id));
+        modelAndView.setViewName("editMedicalBillDetail");
+        return modelAndView;
+    }
+    @PostMapping("/saveMedicalBillDetail")
+    public ModelAndView saveMedicalBillDetail(@Valid @ModelAttribute("medicalBillDetail") MedicalBillDetail newMedicalBillDetail,
+                                        RedirectAttributes redirectAttributes,
+                                        ModelAndView modelAndView,
+                                        BindingResult bindingResult) {
+        modelAndView.setViewName("redirect:/medicalBillDetail/medicalBillDetail");
+        if (bindingResult.hasErrors()) {
+
+            return modelAndView;
+        }
+        try {
+            medicalBillDetailService.create(newMedicalBillDetail);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("failed", "Add MedicalBill Detail not successful, please try again");
+        }
+        return modelAndView;
+    }
+
     // API PostMan
     @GetMapping("/getAll")
     List<MedicalBillDetailDTO> getListMedicalBillDetail(){

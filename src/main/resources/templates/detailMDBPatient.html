@@ -39,7 +39,7 @@
 </nav>
 <div class="col-3"></div>
 <div class="container col-6">
-  <h1>List Medical Bill Detail</h1>
+  <h1>Medical Bill Detail Of Patient</h1>
   <table class="table table-active">
     <tr>
       <th>Patient</th>
@@ -49,7 +49,7 @@
       <th>Email</th>
       <th>Address</th>
     </tr>
-    <tr th:each="medicalBillDetails : ${medicalBillDetailList}">
+    <tr th:each="medicalBillDetails : ${medicalBillDetail}">
       <td th:text="${medicalBillDetails.medicalBill.patient.name}"></td>
       <td th:text="${medicalBillDetails.medicalBill.doctor.name}"></td>
       <td th:text="${medicalBillDetails.drug.name}"></td>
@@ -58,7 +58,6 @@
       <td th:text="${medicalBillDetails.medicalBill.patient.address}"></td>
     </tr>
   </table>
-  <a href="/medicalBillDetail/addMedicalBillDetail"  th:href="@{/medicalBillDetail/addMedicalBillDetail}" class="btn btn-success">Add Medical Bill Detail</a>
 </div>
 </body>
 </html>

@@ -91,6 +91,15 @@ public class MedicalBillController {
 
     }
 
+    @RequestMapping(value = "/detailMedicalBill", method = RequestMethod.GET)
+    public ModelAndView Detail(@RequestParam(name = "id") Long id,
+                                     ModelAndView modelAndView,
+                                     RedirectAttributes redirectAttributes) throws Exception {
+        modelAndView.addObject("medicalBillDetail",medicalBillService.findMBDofMB(id));
+        modelAndView.setViewName("detailMedicalBill");
+        return modelAndView;
+    }
+
 
     // API PostMan
     @GetMapping("/getAll")

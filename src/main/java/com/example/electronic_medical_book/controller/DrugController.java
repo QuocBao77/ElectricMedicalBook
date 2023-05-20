@@ -3,6 +3,7 @@ package com.example.electronic_medical_book.controller;
 import com.example.electronic_medical_book.dto.*;
 import com.example.electronic_medical_book.entity.Doctor;
 import com.example.electronic_medical_book.entity.Drug;
+import com.example.electronic_medical_book.entity.Patient;
 import com.example.electronic_medical_book.mapper.DrugMapper;
 import com.example.electronic_medical_book.repository.DrugRepository;
 import com.example.electronic_medical_book.service.DrugService;
@@ -37,6 +38,52 @@ public class DrugController {
         modelAndView.addObject("drugList", drugDTOS);
         modelAndView.setViewName("drug");
         return modelAndView;
+    }
+
+    @GetMapping("/addDrug")
+    public ModelAndView addDrug(ModelAndView modelAndView) {
+        modelAndView.addObject("drug", new DrugDTO());
+        modelAndView.setViewName("addDrug");
+        return modelAndView;
+    }
+
+    @PostMapping("/saveDrug")
+    public ModelAndView saveDrug(@Valid @ModelAttribute("drug") Drug newDrug,
+                                    RedirectAttributes redirectAttributes,
+                                    ModelAndView modelAndView,
+                                    BindingResult bindingResult) {
+        modelAndView.setViewName("redirect:/drug/drug");
+        if (bindingResult.hasErrors()) {
+
+            return modelAndView;
+        }
+        try {
+            drugService.create(newDrug);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("failed", "Add Drug not successful, please try again");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/editDrug", method = RequestMethod.GET)
+    public ModelAndView currentDrug(@RequestParam(name = "id") Long id,
+                                       ModelAndView modelAndView) throws Exception {
+        modelAndView.addObject("drug", drugService.findById(id));
+        modelAndView.setViewName("editDrug");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/deleteDrug", method = RequestMethod.GET)
+    public ModelAndView deletePatient(@RequestParam(name = "id") Long id,
+                                      ModelAndView modelAndView,
+                                      RedirectAttributes redirectAttributes) throws Exception {
+        drugService.delete(id);
+        redirectAttributes.addFlashAttribute("success", "Removed drug successfully!");
+        modelAndView.setViewName("redirect:/drug/drug");
+        return modelAndView;
+
     }
 
 
