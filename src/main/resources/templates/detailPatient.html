@@ -46,12 +46,16 @@
             <th>Date</th>
             <th>CCCD</th>
             <th>Doctor</th>
+            <th>Action</th>
         </tr>
         <tr th:each="medicalBills : ${medicalBill}">
             <td th:text="${medicalBills.patient.name}"></td>
             <td th:text="${medicalBills.requestDate}"></td>
             <td th:text="${medicalBills.patient.cccd}"></td>
             <td th:text="${medicalBills.doctor.name}"></td>
+            <td>
+                <a th:href="@{/medicalBill/detailMedicalBill?id={id}(id=${medicalBills.id})}" class="btn btn-success">Detail</a>
+            </td>
         </tr>
     </table>
 </div>
